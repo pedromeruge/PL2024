@@ -10,9 +10,9 @@
 Neste trabalho criou-se um conversor de linguagem MarkDown para HTML para a maioria dos elementos descritos na "Basic Syntax" da Cheat Sheet fornecida pelo docente.
 
 Foi criado um script de python com funções que convertem os seguintes elementos:
-- Cabeçalhos: linhas iniciadas por "# texto", ou "## texto" ou "### texto"
-- Bold: pedaços de texto entre "**"
-- Itálico: pedaços de texto entre "*"
+- Cabeçalhos
+- Texto em Bold
+- Texto em Itálico
 - Listas numeradas
 - Links
 - Imagens
