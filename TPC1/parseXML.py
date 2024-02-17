@@ -38,7 +38,7 @@ def generateStatistics(csv):
     print(f"Modalidades desportivas encontradas: {sorted(modalidades)}\n")
     print(f"Atletas| aptos: {(aptos / totalAtletas) * 100}% inaptos: {(inaptos / totalAtletas) * 100}%\n")
     print("Escalões intervalos:")
-    for i in range(0,19):
+    for i in range(0,20):
         if (escaloes[i] != 0):
             print(f"[{i*5},{i*5+4}]: {(escaloes[i] / totalAtletas) * 100:.2f}%")
 
