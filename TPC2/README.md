@@ -1,4 +1,4 @@
-# TPC2: 
+# TPC2: Conversor de MD para HTML
 ## 2024-02-17
 
 ## Autor:
@@ -17,4 +17,4 @@ Foi criado um script de python com funções que convertem os seguintes elemento
 - Links
 - Imagens
 
-Para testar o script foram utilizados os inputs fornecidos pelo docente, verificando-se que produziram os outputs fornecidos esperados
+Para testar o script foram utilizados os inputs fornecidos pelo docente, verificando-se que produziram os outputs fornecidos esperados.
