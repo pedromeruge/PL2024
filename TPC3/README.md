@@ -1,4 +1,4 @@
-# TPC2: Somador ON/OFF
+# TPC3: Somador ON/OFF
 ## 2024-02-24
 
 ## Autor:
