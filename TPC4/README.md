@@ -1,4 +1,4 @@
-# TPC4: Somador ON/OFF
+# TPC4: Analisador léxico
 ## 2024-02-24
 
 ## Autor:
