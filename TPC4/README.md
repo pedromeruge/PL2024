@@ -1,5 +1,5 @@
 # TPC4: Analisador léxico
-## 2024-02-24
+## 2024-03-05
 
 ## Autor:
 - A100709
