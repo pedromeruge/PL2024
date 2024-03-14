@@ -1,0 +1,44 @@
+[
+    {
+        "cod": "A11",
+        "nome": "agua",
+        "quant": 10,
+        "preco": 0.5
+    },
+    {
+        "cod": "A12",
+        "nome": "bolo",
+        "quant": 10,
+        "preco": 0.6
+    },
+    {
+        "cod": "A13",
+        "nome": "agros",
+        "quant": 10,
+        "preco": 0.7
+    },
+    {
+        "cod": "B11",
+        "nome": "skittles",
+        "quant": 9,
+        "preco": 0.8
+    },
+    {
+        "cod": "B12",
+        "nome": "salame",
+        "quant": 10,
+        "preco": 0.5
+    },
+    {
+        "cod": "B13",
+        "nome": "mista",
+        "quant": 9,
+        "preco": 1.2
+    },
+    {
+        "cod": "C11",
+        "nome": "sandes",
+        "quant": 10,
+        "preco": 2.5
+    }
+]

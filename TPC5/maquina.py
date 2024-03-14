@@ -1,14 +1,18 @@
 import ply.lex as lex
 import sys
+import json 
+from datetime import date
 
 def print_balance_to_coins(balance: int):
     result_str = ""
-    euros = balance // 100
-    cents = balance % 100
+    euros = int(balance / 100)
+    cents = int(balance % 100)
     if (euros > 0):
         result_str += f"{euros}e"
     if (cents > 0):
         result_str += f"{cents}c"
+    if (result_str == ""):
+        result_str = "0c"
     return result_str
 
 def convert_balance_to_coins(balance: int):
@@ -25,15 +29,10 @@ def convert_balance_to_coins(balance: int):
         coin_iter = coin_iter + 1
     return result_coins
 
-lista_produtos = [
-    ("agua",50),
-    ("bolo",60),
-    ("agros",70),
-    ("skittles",80),
-    ("salame",50),
-    ("mista",120),
-    ("sandes",250)
-]
+jsonFile = open(sys.argv[1],"r")
+
+lista_produtos = json.load(jsonFile)
+jsonFile.close()
 
 states = (
     ('selecionar','exclusive'),
@@ -54,8 +53,15 @@ tokens = [
 
 def t_LISTAR(t):
     r'LISTAR'
+    print(
+    """
+    cod      | nome      | quantidade    | preço
+    -----------------------------------------------------"""
+    )
     for index in range(0,len(lista_produtos)):
-        print(f"{index+1}: {lista_produtos[index]}")
+        print(
+    f'    {lista_produtos[index]["cod"]}        {lista_produtos[index]["nome"]}        {lista_produtos[index]["quant"]}              {lista_produtos[index]["preco"]}'
+    )
 
 def t_MOEDA(t):
     r'MOEDA'
@@ -67,19 +73,25 @@ def t_SELECIONAR(t):
 
 #Como interpretado do enunciado, só se pode selecionar um item em cada "SELECIONAR", logo manda para estado inicial depois
 def t_selecionar_NUMBER(t):
-    r'\d+'
-    t.value = int(t.value)
-    if (t.value <= len(lista_produtos)):
-        preco_item = lista_produtos[t.value-1][1]
+    r'[A-Z]\d+'
+    item = next((prod for prod in lista_produtos if prod["cod"] == t.value), None)  # procurar prod por cód na lista
+    if (item != None):
+        preco_item = int(item["preco"] * 100)
         if (t.lexer.balance >= preco_item):
-            t.lexer.balance -= preco_item
-            print(f"COMPROU ITEM '{lista_produtos[t.value-1][0]}' CUST0: {print_balance_to_coins(lista_produtos[t.value-1][1])}")
-            print(f"SALDO {print_balance_to_coins(t.lexer.balance)}")
+            if (item["quant"] > 0):
+                t.lexer.balance -= preco_item
+
+                next((d.update({"quant": d["quant"] - 1}) for d in lista_produtos if d["cod"] == t.value)) #reduzir quantidade de produto na lista
+
+                print(f"Pode retirar o produto dispensado \"{item['nome']}\"")
+                print(f"Saldo = {print_balance_to_coins(t.lexer.balance)}")
+            else:
+                print("Máquina já não possui mais desse artigo")
         else:
-            print(f"DINHEIRO INSUFICIENTE /!\\")
-            print(f"SALDO: {print_balance_to_coins(t.lexer.balance)} | ITEM '{lista_produtos[t.value-1][0]}' CUSTA: {print_balance_to_coins(lista_produtos[t.value-1][1])}")
+            print(f"Saldo insuficiente para satisfazer o seu pedido")
+            print(f"Saldo = {print_balance_to_coins(t.lexer.balance)}; Pedido \"{item['nome']}\" = {print_balance_to_coins(preco_item)}")
     else:
-        print("ITEM INVÁLIDO")
+        print("Máquina não possui esse artigo")
 
     t.lexer.begin('INITIAL')
 
@@ -111,15 +123,21 @@ def t_SAIR(t):
     r'SAIR'
     total_bal = ','.join(convert_balance_to_coins(t.lexer.balance))
     if total_bal == "":
-        total_bal = "SEM TROCO"
+        total_bal = "Sem troco"
+        print("Sem troco")
+    else:
+        print(f"Pode retirar o troco: {total_bal}.")
 
-    print(f"TROCO: {total_bal}")
+    print("Até à próxima")
+    jsonFile = open(sys.argv[1],"w")
+    jsonFile.write(json.dumps(lista_produtos, indent=4)) # escrever valores atualizados para mesmo json
+    jsonFile.close()
 
-    t.lexer.begin('INITIAL')
-    # return t
-
+    #end program
+    exit(0)
 
 t_ANY_ignore_COMMENT = r'\#.*'
+
 def t_moeda_ignore_COMMA(t):
     r','
 
@@ -130,6 +148,9 @@ def t_ANY_newline(t):
 def t_ANY_error(t):
     print("Illegal character '%s'" % t.value[0])
     t.lexer.skip(1)
+
+print(f"{date.today()}, Stock carregado, Estado atualizado.")
+print("Bom dia. Estou disponível para atender o seu pedido.")
 
 # Build the lexer
 lexer = lex.lex()
