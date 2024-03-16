@@ -72,7 +72,7 @@ LA(p12) = {`*`}
 
 LA(p13) = {`/`}
 
-LA(p14) = Follow(TermoAux) = Follow(Termo) = FirstN(ExpAux) U Follow(TermoAux) = ({`+`, `-`} U Follow(ExpAux)) U Follow(Termo) = ({`+`, `-`} U Follow(Exp)) U c = ({`+`, `-`} U {`)`, `$`}) U ∅ = {`+`, `-`, `)`, `$`}
+LA(p14) = Follow(TermoAux) = Follow(Termo) = FirstN(ExpAux) U Follow(TermoAux) = ({`+`, `-`} U Follow(ExpAux)) U Follow(Termo) = ({`+`, `-`} U Follow(Exp)) U ∅ = ({`+`, `-`} U {`)`, `$`}) U ∅ = {`+`, `-`, `)`, `$`}
 
 Depois testei a condição LL(1) e verifiquei que, para cada conjunto de produções, a interseção dos lookaheads é o conjunto vazio, como pretendido:
 
