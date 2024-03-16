@@ -1,0 +1,40 @@
+T = {'?','!','+','-','/','*', '=',letr, num}
+NT = {Oper1,Var,DivVar}
+
+      p1
+Linha -> Oper1
+      p2 
+      |  Var
+    
+      p3
+Oper1 -> '?' letra
+      p4
+       | '!' Var 
+
+    p5
+Var -> letra '=' Var
+    p6
+     | Var '*' Var
+    p7
+     | Var '+' Var
+    p8
+     | Var '-' Var
+    p9
+     | Var '/' DivVar
+    p10
+     | letra
+     p11 
+     | num
+
+      p12
+DivVar -> Var
+      p13
+       -> '(' Var '/' Var ')'
+
+p1 = {'?','!'}
+p2 = ???
+p3 = 
+p12 = {'('}
+
+// NOTA: Podia meter um Oper2 que correspondia a '+', '-','*'.'/', mas como é que fazia para representar os parêntesis para elementos à direita de '/' ???
+
